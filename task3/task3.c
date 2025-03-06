@@ -35,11 +35,14 @@ int is_empty(struct Stack *stack) {
 }
 int pop(struct Stack *stack) {
   if (is_empty(stack) == 1) {
-    printf("Stack is empty");
     return -1;
   } else {
     int last_element = stack->elements[stack->number_of_elements - 1];
     stack->number_of_elements--;
     return last_element;
   }
+}
+void delete_stack(struct Stack *stack) {
+  free(stack->elements);
+  free(stack);
 }
