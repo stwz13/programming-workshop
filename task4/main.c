@@ -15,5 +15,9 @@ void test1() {
   assert(count(new_list) == 1 && find_element(new_list, 1) == 5);
   remove_node(new_list, 1);
   assert(count(new_list) == 0);
+  delete_list(new_list);
 }
-int main() { test1(); }
+int main() {
+  test1();
+  return 0;
+}

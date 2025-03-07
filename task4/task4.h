@@ -5,3 +5,4 @@ int count(struct List *list);
 void app(struct List *list, int new_element, int number);
 void remove_node(struct List *list, int number);
 int find_element(struct List *list, int number);
+void delete_list(struct List *list);
