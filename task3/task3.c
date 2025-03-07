@@ -36,7 +36,7 @@ int is_empty(struct Stack *stack) {
 int pop(struct Stack *stack) {
   if (is_empty(stack) == 1) {
     printf("Stack is empty\n");
-    exit("EXIT_FAILURE");
+    exit(EXIT_FAILURE);
   } else {
     int last_element = stack->elements[stack->number_of_elements - 1];
     stack->number_of_elements--;
