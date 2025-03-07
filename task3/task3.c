@@ -1,23 +1,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct Stack {
+typedef struct Stack {
   int *elements;
   int max_size;
   int number_of_elements;
-};
-struct Stack *create_stack(int size_of_stack) {
+} Stack;
+Stack *create_stack(int size_of_stack) {
   struct Stack *stack = malloc(sizeof(struct Stack));
   stack->elements = malloc(size_of_stack * sizeof(int));
   stack->number_of_elements = 0;
   stack->max_size = size_of_stack;
   return stack;
 }
-void expand_stack(struct Stack *stack) {
+void expand_stack(Stack *stack) {
   stack->max_size = 2 * stack->max_size;
   stack->elements = realloc(stack->elements, stack->max_size * sizeof(int));
 }
-void push(struct Stack *stack, int new_element) {
+void push(Stack *stack, int new_element) {
   if (stack->max_size < stack->number_of_elements + 1) {
     printf("Stack is full.Memory is being added.");
     expand_stack(stack);
@@ -35,7 +35,8 @@ int is_empty(struct Stack *stack) {
 }
 int pop(struct Stack *stack) {
   if (is_empty(stack) == 1) {
-    return -1;
+    printf("Stack is empty\n");
+    exit("EXIT_FAILURE");
   } else {
     int last_element = stack->elements[stack->number_of_elements - 1];
     stack->number_of_elements--;
