@@ -10,8 +10,8 @@ task2.o: task2.c task2.h
 task2.a: task2.o
 	ar rc task2.a task2.o
 main.o: main.c
-	gcc -g -c main.c -o main.o -lm
+	gcc -g -c main.c -o main.o
 task2_test: main.o task2.a
-	gcc -g -static -o task2_test main.o task2.a -lm
+	gcc -g -static -o task2_test main.o task2.a
 test2: task2_test
 	./task2_test
