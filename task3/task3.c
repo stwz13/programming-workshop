@@ -21,10 +21,9 @@ void push(Stack *stack, int new_element) {
   if (stack->max_size < stack->number_of_elements + 1) {
     printf("Stack is full. Memory is being added.\n");
     expand_stack(stack);
-  } else {
-    stack->elements[stack->number_of_elements] = new_element;
-    stack->number_of_elements++;
   }
+  stack->elements[stack->number_of_elements] = new_element;
+  stack->number_of_elements++;
 }
 int is_empty(Stack *stack) { return (stack->number_of_elements == 0); }
 int pop(Stack *stack) {
@@ -40,4 +39,9 @@ int pop(Stack *stack) {
 void delete_stack(Stack *stack) {
   free(stack->elements);
   free(stack);
+}
+void print(Stack *stack) {
+  for (int i = 0; i < stack->number_of_elements; i++) {
+    printf("%d\n", stack->elements[i]);
+  }
 }

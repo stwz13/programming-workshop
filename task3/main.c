@@ -7,6 +7,7 @@ void test1() {
   push(new_stack, 5);
   push(new_stack, 7);
   push(new_stack, 9);
+  assert(is_empty(new_stack) == 0 && pop(new_stack) == 9);
   assert(is_empty(new_stack) == 0 && pop(new_stack) == 7);
   assert(is_empty(new_stack) == 0 && pop(new_stack) == 5);
   assert(is_empty(new_stack) == 1);
