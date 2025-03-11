@@ -40,8 +40,3 @@ void delete_stack(Stack *stack) {
   free(stack->elements);
   free(stack);
 }
-void print(Stack *stack) {
-  for (int i = 0; i < stack->number_of_elements; i++) {
-    printf("%d\n", stack->elements[i]);
-  }
-}

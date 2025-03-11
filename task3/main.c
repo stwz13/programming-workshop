@@ -1,6 +1,5 @@
 #include "task3.h"
 #include <assert.h>
-#include <stdio.h>
 #include <stdlib.h>
 void test1() {
   struct Stack *new_stack = create_stack(2);
