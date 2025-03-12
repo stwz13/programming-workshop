@@ -32,8 +32,8 @@ void test5() {
 }
 void test6() {
   double *ans = solution_of__quadratic_equation(1, -1E+10, -1, 1E-11, 1E-11);
-  assert(fabs(ans[0] - 2) < 10E-11 && fabs(ans[1] + 1E-10) < 10E-11 &&
-         fabs(ans[2] - 1E+10) < 10E-11);
+  assert(fabs(ans[0] - 2) < 1E-11 && fabs(ans[1] + 1E-10) < 1E-11 &&
+         fabs(ans[2] - 1E+10) < 1E-11);
   free(ans);
 }
 void test7() {
