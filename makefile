@@ -1,26 +1,16 @@
-SUBDIRS := $(shell find . -maxdepth 1 -type d -not -path "." -not -path "./.git" -not -path "./.github")
-bin: 
-	@for dir in $(SUBDIRS); do \
-		$(MAKE) -C $$dir test; \
-	done
-test: bin
-	@for dir in $(SUBDIRS); do \
-		cd $$dir; \
-		for test in $$(find . -maxdepth 1 -type f -executable -name "*_test*"); do \
-			./$$test || exit 1; \
-		done; \
-		cd ..; \
-	done
 
-clean: test
-	@for dir in $(SUBDIRS); do \
-		$(MAKE) -C $$dir clean; \
-	done
+clean:
+	rm -rf *.o *.a *_test
 check_format:
-	@for dir in $(SUBDIRS); do \
-		$(MAKE) -C $$dir check_format; \
-	done
+	clang-format -style=LLVM -i `find -regex ".+\.[ch]"` --dry-run --Werror
 format:
-	@for dir in $(SUBDIRS); do \
-		$(MAKE) -C $$dir format; \
-	done
+	clang-format -style=LLVM -i `find -regex ".+\.[ch]"`
+task3.o: task3.c task3.h
+	gcc -g -c task3.c -o task3.o
+task3.a: task3.o
+	ar rc task3.a task3.o
+main.o: main.c
+	gcc -g -c main.c -o main.o
+task3_test: main.o task3.a
+	gcc -g -static -o task3_test main.o task3.a
+test: task3_test
