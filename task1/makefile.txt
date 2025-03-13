@@ -8,9 +8,9 @@ task1.o: task1.c task1.h
 	gcc -g -c task1.c -o task1.o 
 task1.a: task1.o
 	ar rc task1.a task1.o 
-main_test.o: main_test.c
-	gcc -g -c main_test.c -o main_test.o -lm
-task1_test: main_test.o task1.a
-	gcc -g -static -o task1_test main_test.o task1.a -lm
+main.o: main.c
+	gcc -g -c main.c -o main.o -lm
+task1_test: main.o task1.a
+	gcc -g -static -o task1_test main.o task1.a -lm
 test1: task1_test
 	./task1_test
