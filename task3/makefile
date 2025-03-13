@@ -15,4 +15,4 @@ task3_test: main.o task3.a
 	gcc -g -static -o task3_test main.o task3.a
 test3: task3_test
 	./task3_test
-all: task3_test
+test: task3_test
