@@ -1,6 +1,6 @@
 #include "task3.h"
 #include <assert.h>
-#include <stdlib.h>
+#include <stdio.h>
 void test1() {
   struct Stack *new_stack = create_stack(2);
   push(new_stack, 5);
@@ -14,5 +14,6 @@ void test1() {
 }
 int main() {
   test1();
+  printf("The test was completed successfully\n");
   return 0;
 }
