@@ -5,7 +5,7 @@ check_format:
 format:
 	clang-format -style=LLVM -i `find -regex ".+\.[ch]"`
 test:
-	@for test in $(shell find . -maxdepth 3 -type f -regex '.*_test'); do \
+	for test in $(shell find . -maxdepth 3 -type f -regex '.*_test'); do \
 		echo "$$test is running"; \
 		./$$test || exit 1; \
 	done
