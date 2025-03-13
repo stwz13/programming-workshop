@@ -13,5 +13,5 @@ main.o: main.c
 	gcc -g -c main.c -o main.o
 task4_test: main.o task4.a
 	gcc -g -static -o task4_test main.o task4.a
-test4: task4_test
+test: task4_test
 	./task4_test
