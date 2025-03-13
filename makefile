@@ -1,4 +1,4 @@
-all: task3
+all: task3_test
 clean:
 	rm -rf *.o *.a *_test
 check_format:
