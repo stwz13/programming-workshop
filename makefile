@@ -12,6 +12,15 @@ test: bin
 		cd ..; \
 	done
 
-clean:
-	@echo $(SUBDIRS) | xargs -I {} $(MAKE) -C {} clean
-	rm -rf *_test *.o *.a
+clean: test
+	@for dir in $(SUBDIRS); do \
+		$(MAKE) -C $$dir clean; \
+	done
+check_format:
+	@for dir in $(SUBDIRS); do \
+		$(MAKE) -C $$dir check_format; \
+	done
+format:
+	@for dir in $(SUBDIRS); do \
+		$(MAKE) -C $$dir format; \
+	done
