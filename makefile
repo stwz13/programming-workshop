@@ -1,3 +1,4 @@
+all: task3
 clean:
 	rm -rf *.o *.a *_test
 check_format:
