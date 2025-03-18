@@ -19,6 +19,5 @@ void test1() {
 }
 int main() {
   test1();
-  printf("The test was completed successfully\n");
   return 0;
 }
