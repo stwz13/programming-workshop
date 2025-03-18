@@ -13,6 +13,6 @@ main.o: main.c
 	gcc -g -c main.c -o main.o
 task3_test: main.o task3.a
 	gcc -g -static -o task3_test main.o task3.a
-test3: task3_test
-	./task3_test
 test: task3_test
+	./task3_test
+
