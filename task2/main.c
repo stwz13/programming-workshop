@@ -15,5 +15,6 @@ int main() {
   test2();
   test3();
   test4();
+  printf("The test was completed successfully\n");
   return 0;
 }
