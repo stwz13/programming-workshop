@@ -1,6 +1,7 @@
 #include "task2.h"
 #include <assert.h>
 #include <math.h>
+#include <stdio.h>
 #include <stdlib.h>
 double f1(double x) { return x; }
 double f2(double x) { return x * x; };
