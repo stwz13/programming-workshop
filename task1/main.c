@@ -49,6 +49,5 @@ int main() {
   test5();
   test6();
   test7();
-  printf("The test was completed successfully\n");
   return 0;
 }
