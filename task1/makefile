@@ -10,7 +10,5 @@ task1.a: task1.o
 	ar rc task1.a task1.o 
 main.o: main.c
 	gcc -g -c main.c -o main.o -lm
-task1_test: main.o task1.a
+test: main.o task1.a
 	gcc -g -static -o task1_test main.o task1.a -lm
-test: task1_test
-	./task1_test
