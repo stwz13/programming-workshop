@@ -10,11 +10,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
       - name: Make all files executable
         run: find . -type f -print0 | xargs -0 chmod +x
+
 
       - name: Checkstyle
         run: make check_format
  
+
       - name: Test
         run: make test
