@@ -2,9 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define SUCCESSFUL_COMPLETION 0
 #define LIST_IS_EMPTY -2
 #define BEYOND_THE_LIST_SIZE -1
-#define SUCCESSFUL_COMPLETION 0
 
 list *create_new_list() {
   list *new_list = malloc(sizeof(list));
@@ -57,21 +57,21 @@ void app_to_end(list *list, int new_element) {
   }
 }
 
-void app(list *list, int new_element, int number, int *completion) {
+void app(list *list, int new_element, int number, int *exit_status) {
 
   if (number == 1) {
     app_to_top(list, new_element);
-    *completion = SUCCESSFUL_COMPLETION;
+    *exit_status = SUCCESSFUL_COMPLETION;
 
   } else if (number == count(list) + 1) {
     app_to_end(list, new_element);
-    *completion = SUCCESSFUL_COMPLETION;
+    *exit_status = SUCCESSFUL_COMPLETION;
 
   } else if (count(list) < number || number <= 0) {
-    *completion = BEYOND_THE_LIST_SIZE;
+    *exit_status = BEYOND_THE_LIST_SIZE;
 
   } else {
-    *completion = SUCCESSFUL_COMPLETION;
+    *exit_status = SUCCESSFUL_COMPLETION;
     node *new_node = malloc(sizeof(node));
     new_node->element = new_element;
     node *curr = list->head;
@@ -84,21 +84,21 @@ void app(list *list, int new_element, int number, int *completion) {
   }
 }
 
-void remove_node(list *list, int number, int *completion) {
+void remove_node(list *list, int number, int *exit_status) {
   node *curr = list->head;
 
   if (count(list) == 0) {
-    *completion = LIST_IS_EMPTY;
+    *exit_status = LIST_IS_EMPTY;
 
   } else if (count(list) < number || number <= 0) {
-    *completion = BEYOND_THE_LIST_SIZE;
+    *exit_status = BEYOND_THE_LIST_SIZE;
 
   } else if (number == 1) {
     list->head = curr->link;
-    *completion = SUCCESSFUL_COMPLETION;
+    *exit_status = SUCCESSFUL_COMPLETION;
 
   } else {
-    *completion = SUCCESSFUL_COMPLETION;
+    *exit_status = SUCCESSFUL_COMPLETION;
 
     for (int i = 0; i < number - 2; i++)
       curr = curr->link;
@@ -108,11 +108,11 @@ void remove_node(list *list, int number, int *completion) {
   }
 }
 
-int find_element(list *list, int number, int *completion) {
+int find_element(list *list, int number, int *exit_status) {
   if (count(list) < number || number <= 0) {
-    *completion = BEYOND_THE_LIST_SIZE;
+    *exit_status = BEYOND_THE_LIST_SIZE;
   } else {
-    *completion = SUCCESSFUL_COMPLETION;
+    *exit_status = SUCCESSFUL_COMPLETION;
 
     node *curr = list->head;
     for (int i = 0; i < number - 1; i++)

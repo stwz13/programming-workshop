@@ -1,7 +1,8 @@
-typedef struct node {
+typedef struct node node;
+struct node {
   int element;
-  struct node *link;
-} node;
+  node *link;
+};
 typedef struct {
   node *head;
 } list;
@@ -9,7 +10,7 @@ list *create_new_list();
 int count(list *list);
 void app_to_top(list *list, int new_element);
 void app_to_end(list *list, int new_element);
-void app(list *list, int new_element, int number, int *completion);
-void remove_node(list *list, int number, int *completion);
-int find_element(list *list, int number, int *completion);
+void app(list *list, int new_element, int number, int *exit_status);
+void remove_node(list *list, int number, int *exit_status);
+int find_element(list *list, int number, int *exit_status);
 void delete_list(list *list);
