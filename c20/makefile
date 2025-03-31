@@ -15,4 +15,3 @@ bin: main.o integral.a
 test:bin
 	./integral_test
 
-	
