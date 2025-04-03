@@ -16,18 +16,15 @@ void test1() {
 }
 
 void test2() {
-  int exit_status;
   list *new_list = create_new_list();
 
-  remove_node(new_list, 1, &exit_status);
-  assert(exit_status == -2);
+  assert(remove_node(new_list, 1) == -2);
 
   app_to_end(new_list, 5);
-  remove_node(new_list, -5, &exit_status);
-  assert(exit_status == -1);
 
-  remove_node(new_list, 1, &exit_status);
-  assert(exit_status == 0);
+  assert(remove_node(new_list, -5) == -1);
+
+  assert(remove_node(new_list, 1) == 0);
 
   delete_list(new_list);
 }
@@ -36,17 +33,16 @@ void test3() {
   int exit_status;
   list *new_list = create_new_list();
 
-  app(new_list, 5, 1, &exit_status);
-  assert(exit_status == 0 && find_element(new_list, 1, &exit_status) == 5);
+  assert(app(new_list, 5, 1) == 0 &&
+         find_element(new_list, 1, &exit_status) == 5);
 
-  app(new_list, 7, 2, &exit_status);
-  assert(exit_status == 0 && find_element(new_list, 2, &exit_status) == 7);
+  assert(app(new_list, 7, 2) == 0 &&
+         find_element(new_list, 2, &exit_status) == 7);
 
-  app(new_list, 9, 2, &exit_status);
-  assert(exit_status == 0 && find_element(new_list, 2, &exit_status) == 9);
+  assert(app(new_list, 9, 2) == 0 &&
+         find_element(new_list, 2, &exit_status) == 9);
 
-  app(new_list, 1, -1, &exit_status);
-  assert(exit_status == -1);
+  assert(app(new_list, 1, -1) == -1);
 
   delete_list(new_list);
 }

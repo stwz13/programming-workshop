@@ -57,21 +57,20 @@ void app_to_end(list *list, int new_element) {
   }
 }
 
-void app(list *list, int new_element, int number, int *exit_status) {
+int app(list *list, int new_element, int number) {
 
   if (number == 1) {
     app_to_top(list, new_element);
-    *exit_status = SUCCESSFUL_COMPLETION;
+    return SUCCESSFUL_COMPLETION;
 
   } else if (number == count(list) + 1) {
     app_to_end(list, new_element);
-    *exit_status = SUCCESSFUL_COMPLETION;
+    return SUCCESSFUL_COMPLETION;
 
   } else if (count(list) < number || number <= 0) {
-    *exit_status = BEYOND_THE_LIST_SIZE;
+    return BEYOND_THE_LIST_SIZE;
 
   } else {
-    *exit_status = SUCCESSFUL_COMPLETION;
     node *new_node = malloc(sizeof(node));
     new_node->element = new_element;
     node *curr = list->head;
@@ -81,24 +80,25 @@ void app(list *list, int new_element, int number, int *exit_status) {
 
     new_node->link = curr->link;
     curr->link = new_node;
+    return SUCCESSFUL_COMPLETION;
   }
 }
 
-void remove_node(list *list, int number, int *exit_status) {
+int remove_node(list *list, int number) {
   node *curr = list->head;
 
   if (count(list) == 0) {
-    *exit_status = LIST_IS_EMPTY;
+    return LIST_IS_EMPTY;
 
   } else if (count(list) < number || number <= 0) {
-    *exit_status = BEYOND_THE_LIST_SIZE;
+    return BEYOND_THE_LIST_SIZE;
 
   } else if (number == 1) {
     list->head = curr->link;
-    *exit_status = SUCCESSFUL_COMPLETION;
+    return SUCCESSFUL_COMPLETION;
 
   } else {
-    *exit_status = SUCCESSFUL_COMPLETION;
+    return SUCCESSFUL_COMPLETION;
 
     for (int i = 0; i < number - 2; i++)
       curr = curr->link;
