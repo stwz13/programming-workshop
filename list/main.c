@@ -12,6 +12,9 @@ void test1() {
   int element = find_element(new_list, 1, &exit_status);
   assert(count(new_list) == 2 && element == 3 && exit_status == 0);
 
+  element = find_element(new_list, 2, &exit_status);
+  assert(count(new_list) == 2 && element == 5 && exit_status == 0);
+
   delete_list(new_list);
 }
 
@@ -25,6 +28,8 @@ void test2() {
   assert(remove_node(new_list, -5) == -1);
 
   assert(remove_node(new_list, 1) == 0);
+
+  assert(count(new_list) == 0);
 
   delete_list(new_list);
 }

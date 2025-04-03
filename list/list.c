@@ -98,13 +98,14 @@ int remove_node(list *list, int number) {
     return SUCCESSFUL_COMPLETION;
 
   } else {
-    return SUCCESSFUL_COMPLETION;
 
     for (int i = 0; i < number - 2; i++)
       curr = curr->link;
     node *node_to_delete = curr->link;
     curr->link = curr->link->link;
     free(node_to_delete);
+
+    return SUCCESSFUL_COMPLETION;
   }
 }
 
