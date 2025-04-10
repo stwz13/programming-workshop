@@ -62,26 +62,25 @@ int app(list *list, int new_element, int number) {
   if (number == 1) {
     app_to_top(list, new_element);
     return SUCCESSFUL_COMPLETION;
-
-  } else if (number == count(list) + 1) {
+  }
+  if (number == count(list) + 1) {
     app_to_end(list, new_element);
     return SUCCESSFUL_COMPLETION;
-
-  } else if (count(list) < number || number <= 0) {
-    return BEYOND_THE_LIST_SIZE;
-
-  } else {
-    node *new_node = malloc(sizeof(node));
-    new_node->element = new_element;
-    node *curr = list->head;
-
-    for (int i = 0; i < number - 2; i++)
-      curr = curr->link;
-
-    new_node->link = curr->link;
-    curr->link = new_node;
-    return SUCCESSFUL_COMPLETION;
   }
+  if (count(list) < number || number <= 0) {
+    return BEYOND_THE_LIST_SIZE;
+  }
+
+  node *new_node = malloc(sizeof(node));
+  new_node->element = new_element;
+  node *curr = list->head;
+
+  for (int i = 0; i < number - 2; i++)
+    curr = curr->link;
+
+  new_node->link = curr->link;
+  curr->link = new_node;
+  return SUCCESSFUL_COMPLETION;
 }
 
 int remove_node(list *list, int number) {
