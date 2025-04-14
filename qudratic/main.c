@@ -4,63 +4,68 @@
 #include <stdlib.h>
 
 void test1() {
-  int completion;
-  double *solutions =
-      solutions_of_quadratic_equation(0, 1, 1, 1E-7, &completion);
-
-  assert(completion == -1 && solutions == NULL);
+  double *solutions = NULL;
+  assert(solutions_of_quadratic_equation(0, 1, 1, 1E-7, &solutions) == -1 &&
+         solutions == NULL);
+  free(solutions);
 }
 
 void test2() {
-  int completion;
+  double *solutions;
 
-  double *solutions =
-      solutions_of_quadratic_equation(1, 0, -1, 1E-7, &completion);
+  int count_of_roots =
+      solutions_of_quadratic_equation(1, 0, -1, 1E-7, &solutions);
 
-  assert(completion == 2 && fabs(solutions[0] + 1) < 1E-7 &&
+  assert(count_of_roots == 2 && fabs(solutions[0] + 1) < 1E-7 &&
          fabs(solutions[1] - 1) < 1E-7);
+  free(solutions);
 }
 
 void test3() {
-  int completion;
+  double *solutions;
 
-  double *solutions =
-      solutions_of_quadratic_equation(1, 0, 0, 1E-7, &completion);
-  assert(completion == 1 && fabs(solutions[0]) < 1E-7);
+  int count_of_roots =
+      solutions_of_quadratic_equation(1, 0, 0, 1E-7, &solutions);
+  assert(count_of_roots == 1 && fabs(solutions[0]) < 1E-7);
+  free(solutions);
 }
 
 void test4() {
-  int completion;
+  double *solutions;
 
-  double *solutions =
-      solutions_of_quadratic_equation(1, 0, 1, 1E-7, &completion);
-  assert(completion == -2 && solutions == NULL);
+  int count_of_roots =
+      solutions_of_quadratic_equation(1, 0, 1, 1E-7, &solutions);
+  assert(count_of_roots == -2 && solutions == NULL);
+  free(solutions);
 }
 
 void test5() {
-  int completion;
+  double *solutions;
 
-  double *solutions =
-      solutions_of_quadratic_equation(1, 0, -1E-7, 1E-7, &completion);
-  assert(completion == 2 && fabs(solutions[0] + 3E-4) < 1E-4 &&
+  int count_of_roots =
+      solutions_of_quadratic_equation(1, 0, -1E-7, 1E-7, &solutions);
+  assert(count_of_roots == 2 && fabs(solutions[0] + 3E-4) < 1E-4 &&
          fabs(solutions[1] - 3E-4) < 1E-4);
+  free(solutions);
 }
 
 void test6() {
-  int completion;
+  double *solutions;
 
-  double *solutions =
-      solutions_of_quadratic_equation(1, -1E+10, -1, 1E-11, &completion);
-  assert(completion == 2 && fabs(solutions[0] + 1E-10) < 1E-4 &&
+  int count_of_roots =
+      solutions_of_quadratic_equation(1, -1E+10, -1, 1E-11, &solutions);
+  assert(count_of_roots == 2 && fabs(solutions[0] + 1E-10) < 1E-4 &&
          fabs(solutions[1] - 1E+10) < 1E-4);
+  free(solutions);
 }
 
 void test7() {
-  int completion;
+  double *solutions;
 
-  double *solutions =
-      solutions_of_quadratic_equation(1, 0, -1E-8, 1E-7, &completion);
-  assert(completion == 1 && fabs(solutions[0]) < 1E-7);
+  int count_of_roots =
+      solutions_of_quadratic_equation(1, 0, -1E-8, 1E-7, &solutions);
+  assert(count_of_roots == 1 && fabs(solutions[0]) < 1E-7);
+  free(solutions);
 }
 
 int main() {
