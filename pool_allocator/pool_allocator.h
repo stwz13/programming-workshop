@@ -5,6 +5,7 @@
 #define MEMORY_ALLOCATION_ERROR -1
 #define MEMORY_SIZE_ERROR -2
 #define BEYOND_BUFFER -3
+#define NOT_AT_THE_BEGINNING_OF_BLOCK -4
 
 typedef struct memory_block memory_block;
 

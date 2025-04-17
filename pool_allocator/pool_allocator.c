@@ -48,7 +48,7 @@ int pool_free(pool_allocator *allocator, void *ptr) {
     return BEYOND_BUFFER;
 
   if ((curr_address - begin) % allocator->block_size != 0)
-    return BEYOND_BUFFER;
+    return NOT_AT_THE_BEGINNING_OF_BLOCK;
 
   memory_block *curr_block = (memory_block *)curr_address;
   curr_block->next_block = allocator->head_of_free_blocks;

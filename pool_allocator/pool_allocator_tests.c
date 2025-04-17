@@ -43,9 +43,12 @@ void test_alloc() {
 
     assert(float_array[i] != NULL);
   }
+  assert(allocator.head_of_free_blocks == NULL);
 
   int *int_array = pool_alloc(&allocator);
   assert(int_array == NULL);
+
+  free(buffer);
 }
 
 void test_free() {
@@ -62,7 +65,7 @@ void test_free() {
   assert(pool_free(&allocator, array_beyound_buffer) == BEYOND_BUFFER);
   void *ptr1 = pool_alloc(&allocator);
   assert(ptr1 != NULL);
-  assert(pool_free(&allocator, ptr1 + 1) == BEYOND_BUFFER);
+  assert(pool_free(&allocator, ptr1 + 1) == NOT_AT_THE_BEGINNING_OF_BLOCK);
 
   assert(pool_free(&allocator, ptr1) == SUCCESSFUL_COMPLETION);
 
@@ -70,7 +73,13 @@ void test_free() {
 
   assert(ptr2 != NULL);
 
+  assert(allocator.head_of_free_blocks != NULL);
+
   assert(ptr1 == ptr2);
+
+  pool_free(&allocator, ptr2);
+
+  free(buffer);
 }
 int main() {
   test_init_allocator();
