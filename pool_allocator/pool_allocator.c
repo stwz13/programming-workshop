@@ -33,7 +33,7 @@ void *pool_alloc(pool_allocator *allocator) {
   memory_block *selected_block = allocator->head_of_free_blocks;
   allocator->head_of_free_blocks = selected_block->next_block;
 
-  return (void *)((uint8_t *)selected_block);
+  return (void *)(selected_block);
 }
 
 int pool_free(pool_allocator *allocator, void *ptr) {

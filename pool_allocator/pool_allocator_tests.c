@@ -31,8 +31,13 @@ void test_init_allocator() {
 
 void test_alloc() {
   pool_allocator allocator;
+  pool_allocator *null_allocator = NULL;
+
   uint8_t *buffer = malloc(1024 * 1024);
   init_pool_allocator(&allocator, buffer, 1024 * 1024, 512);
+
+  int *int_ptr = pool_alloc(null_allocator);
+  assert(int_ptr == NULL);
 
   int count_of_blocks = allocator.count_of_blocks;
 
@@ -53,6 +58,8 @@ void test_alloc() {
 
 void test_free() {
   pool_allocator allocator;
+  pool_allocator *null_allocator = NULL;
+
   uint8_t *buffer = malloc(32);
   assert(init_pool_allocator(&allocator, buffer, 32, 16) ==
          SUCCESSFUL_COMPLETION);
@@ -62,6 +69,8 @@ void test_free() {
 
   assert(pool_free(&allocator, null_ptr) == MEMORY_ALLOCATION_ERROR);
 
+  assert(pool_free(null_allocator, array_beyound_buffer) ==
+         MEMORY_ALLOCATION_ERROR);
   assert(pool_free(&allocator, array_beyound_buffer) == BEYOND_BUFFER);
   void *ptr1 = pool_alloc(&allocator);
   assert(ptr1 != NULL);
