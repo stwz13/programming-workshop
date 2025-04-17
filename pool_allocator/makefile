@@ -14,3 +14,4 @@ bin: pool_allocator_tests.o pool_allocator.a
 	gcc -g -static -o pool_allocator_tests pool_allocator_tests.o pool_allocator.a -lm
 test:bin
 	./pool_allocator_tests
+
