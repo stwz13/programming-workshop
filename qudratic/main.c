@@ -3,14 +3,14 @@
 #include <math.h>
 #include <stdlib.h>
 
-void test1() {
+void test_a_zero_returns_error() {
   double *solutions = NULL;
   assert(solutions_of_quadratic_equation(0, 1, 1, 1E-7, &solutions) == -1 &&
          solutions == NULL);
   free(solutions);
 }
 
-void test2() {
+void test_two_roots_standard() {
   double *solutions;
 
   int count_of_roots =
@@ -21,7 +21,7 @@ void test2() {
   free(solutions);
 }
 
-void test3() {
+void test_one_root_at_zero() {
   double *solutions;
 
   int count_of_roots =
@@ -30,7 +30,7 @@ void test3() {
   free(solutions);
 }
 
-void test4() {
+void test_no_real_roots_discriminant_lt_zero() {
   double *solutions;
 
   int count_of_roots =
@@ -39,7 +39,7 @@ void test4() {
   free(solutions);
 }
 
-void test5() {
+void test_small_c_precision_handling() {
   double *solutions;
 
   int count_of_roots =
@@ -49,7 +49,7 @@ void test5() {
   free(solutions);
 }
 
-void test6() {
+void test_large_coefficients() {
   double *solutions;
 
   int count_of_roots =
@@ -59,7 +59,7 @@ void test6() {
   free(solutions);
 }
 
-void test7() {
+void test_single_root_near_zero() {
   double *solutions;
 
   int count_of_roots =
@@ -69,12 +69,12 @@ void test7() {
 }
 
 int main() {
-  test1();
-  test2();
-  test3();
-  test4();
-  test5();
-  test6();
-  test7();
+  test_a_zero_returns_error();
+  test_two_roots_standard();
+  test_one_root_at_zero();
+  test_no_real_roots_discriminant_lt_zero();
+  test_small_c_precision_handling();
+  test_large_coefficients();
+  test_single_root_near_zero();
   return 0;
 }
