@@ -5,7 +5,8 @@ int init_pool_allocator(pool_allocator *allocator, void *buffer,
   if (!allocator || !buffer)
     return MEMORY_ALLOCATION_ERROR;
 
-  if (buffer_size < block_size || block_size < sizeof(memory_block))
+  if (buffer_size < block_size || block_size < sizeof(memory_block) ||
+      block_size == 0)
     return MEMORY_SIZE_ERROR;
 
   allocator->block_size = block_size;
@@ -33,7 +34,7 @@ void *pool_alloc(pool_allocator *allocator) {
   memory_block *selected_block = allocator->head_of_free_blocks;
   allocator->head_of_free_blocks = selected_block->next_block;
 
-  return (void *)(selected_block);
+  return (void *)selected_block;
 }
 
 int pool_free(pool_allocator *allocator, void *ptr) {
