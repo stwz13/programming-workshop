@@ -2,34 +2,37 @@
 #include <assert.h>
 #include <math.h>
 
-double funct1(double x) { return x; }
-double funct2(double x) { return x * x; }
-double funct3(double x) { return 1 / x; }
-double funct4(double x) { return sqrt(x); }
-double funct5(double x) { return sin(x); }
+double linear(double x) { return x; }
+double quadratic(double x) { return x * x; }
+double reciprocal(double x) { return 1 / x; }
+double square_root(double x) { return sqrt(x); }
+double sine(double x) { return sin(x); }
 
-void test1() { assert(fabs(integration(funct1, 5, 15, 100000) - 100) < 1E-2); }
-void test2() {
-  assert(fabs(integration(funct2, 7, 35, 100000000) - 14177.33333) < 1E-3);
+void test_integrate_linear() {
+  assert(fabs(integration(linear, 5, 15, 100000) - 100.0) < 1e-2);
 }
 
-void test3() {
-  (assert(fabs(integration(funct3, 5, 9, 100000) - 0.587) < 1E-3));
+void test_integrate_quadratic() {
+  assert(fabs(integration(quadratic, 7, 35, 100000000) - 14177.33333) < 1e-3);
 }
 
-void test4() {
-  (assert(fabs(integration(funct4, 3, 5, 100000000) - 3.98) < 1E-2));
+void test_integrate_reciprocal() {
+  assert(fabs(integration(reciprocal, 5, 9, 100000) - 0.587) < 1e-3);
 }
 
-void test5() {
-  (assert(fabs(integration(funct5, 1, 3, 100000) - 1.53) < 1E-3));
+void test_integrate_square_root() {
+  assert(fabs(integration(square_root, 3, 5, 100000000) - 3.98) < 1e-2);
+}
+
+void test_integrate_sine() {
+  assert(fabs(integration(sine, 1, 3, 100000) - 1.53) < 1e-3);
 }
 
 int main() {
-  test1();
-  test2();
-  test3();
-  test4();
-  test5();
+  test_integrate_linear();
+  test_integrate_quadratic();
+  test_integrate_reciprocal();
+  test_integrate_square_root();
+  test_integrate_sine();
   return 0;
 }
