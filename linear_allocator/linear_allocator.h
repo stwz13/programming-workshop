@@ -15,6 +15,6 @@ typedef struct {
 
 int linear_allocator_init(linear_allocator* allocator, void* buffer, size_t buffer_size);
 void* linear_alloc(linear_allocator* allocator, size_t size);
-void linear_reset(linear_allocator* allocator);
+int linear_reset(linear_allocator* allocator);
 
-#endif 
+#endif

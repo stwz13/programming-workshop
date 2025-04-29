@@ -28,8 +28,12 @@ void* linear_alloc(linear_allocator* allocator, size_t size) {
     return ptr;
 }
 
-void linear_reset(linear_allocator* allocator) {
-    if (allocator) {
-        allocator->offset = 0;
+int linear_reset(linear_allocator* allocator) {
+    if (!allocator) {
+        return LINEAR_ALLOC_INVALID_ARG;
     }
+    
+    allocator->offset = 0;
+    return LINEAR_ALLOC_SUCCESS;
 }
+

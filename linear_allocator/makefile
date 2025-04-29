@@ -25,3 +25,4 @@ linear_allocator_test: linear_allocator_test.o linear_allocator.a
 
 test: bin
 	./linear_allocator_test
+	
