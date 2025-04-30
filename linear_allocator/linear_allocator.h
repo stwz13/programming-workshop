@@ -18,3 +18,4 @@ void* linear_alloc(linear_allocator* allocator, size_t size);
 int linear_reset(linear_allocator* allocator);
 
 #endif
+
