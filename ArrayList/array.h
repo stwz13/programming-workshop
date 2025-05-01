@@ -12,7 +12,7 @@ typedef struct {
 
 #define ALLOCATION_ERROR -1
 #define BEYOND_LIST_LENGTH -2
-#define MEMORY_SIZE_ERROR -3
+#define MEMORY_SIZE_ERROR -4
 
 #define DEFAULT_CAPACITY 8
 
