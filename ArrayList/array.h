@@ -11,8 +11,7 @@ typedef struct {
 #define SUCCESSFUL_RESULT 0
 
 #define ALLOCATION_ERROR -1
-#define BEYOND_LIST_LENGTH -2
-#define MEMORY_SIZE_ERROR -4
+#define BEYOND_LIST_LENGTH -5
 
 #define DEFAULT_CAPACITY 8
 
