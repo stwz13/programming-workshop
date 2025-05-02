@@ -8,14 +8,15 @@
 #define LINEAR_ALLOC_OUT_OF_MEMORY -2
 
 typedef struct {
-    void* buffer;
-    size_t buffer_size;
-    size_t offset;
+  void *buffer;
+  size_t buffer_size;
+  size_t offset;
 } linear_allocator;
 
-int linear_allocator_init(linear_allocator* allocator, void* buffer, size_t buffer_size);
-void* linear_alloc(linear_allocator* allocator, size_t size);
-int linear_reset(linear_allocator* allocator);
+int linear_allocator_init(linear_allocator *allocator, void *buffer,
+                          size_t buffer_size);
+void *linear_alloc(linear_allocator *allocator, size_t size);
+
+int linear_reset(linear_allocator *allocator);
 
 #endif
-
