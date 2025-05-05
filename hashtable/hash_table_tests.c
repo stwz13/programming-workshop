@@ -175,6 +175,8 @@ void test_free() {
   assert(table.count_of_nodes == 0);
   assert(table.capacity == 0);
   assert(table.allocator == NULL);
+
+  free(buffer);
 }
 int main() {
   test_init_table();
