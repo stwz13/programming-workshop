@@ -1,17 +1,19 @@
 #include "hash_table.h"
 
 int hashtable_init(hash_table *table, size_t capacity,
-                   pool_allocator *allocator) {
+                   pool_allocator *allocator, size_t size_of_element) {
   if (!table || !allocator)
     return ALLOCATOR_ALLOCATION_ERROR;
 
-  if (capacity == 0 || allocator->count_of_blocks * allocator->block_size <
-                           capacity * sizeof(hash_node))
+  if (size_of_element == 0 || capacity == 0 ||
+      allocator->count_of_blocks * allocator->block_size <
+          capacity * sizeof(hash_node))
     return SIZE_ERROR;
 
   table->allocator = allocator;
   table->capacity = capacity;
   table->count_of_nodes = 0;
+  table->size_of_element = size_of_element;
 
   table->hash_nodes = pool_alloc(allocator);
 
@@ -53,22 +55,29 @@ int hashtable_insert(hash_table *table, const char *key, void *value) {
     if (table->hash_nodes[curr_index].is_init != INITIALIZATED) {
 
       table->hash_nodes[curr_index].key = pool_alloc(table->allocator);
+      table->hash_nodes[curr_index].element = pool_alloc(table->allocator);
 
-      if (!table->hash_nodes[curr_index].key)
+
+      if (!table->hash_nodes[curr_index].key || !table->hash_nodes[curr_index].element)
         return ALLOCATOR_ALLOCATION_ERROR;
 
       strcpy(table->hash_nodes[curr_index].key, key);
 
-      table->hash_nodes[curr_index].element = value;
+      memcpy(table->hash_nodes[curr_index].element, value,
+          table->size_of_element);
+
       table->hash_nodes[curr_index].is_init = INITIALIZATED;
       table->count_of_nodes++;
 
       return SUCCESS;
 
     } else if (strcmp(table->hash_nodes[curr_index].key, key) == 0) {
-      table->hash_nodes[curr_index].element = value;
+
+      memcpy(table->hash_nodes[curr_index].element, value,
+             table->size_of_element);
       return SUCCESS;
     }
+
   }
   return SIZE_ERROR;
 }
@@ -142,6 +151,7 @@ int hashtable_free(hash_table *table) {
   table->capacity = 0;
   table->count_of_nodes = 0;
   table->allocator = NULL;
+  table->size_of_element = 0;
 
   return SUCCESS;
 }

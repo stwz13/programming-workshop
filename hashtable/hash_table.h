@@ -21,11 +21,12 @@ typedef struct {
   hash_node *hash_nodes;
   size_t capacity;
   size_t count_of_nodes;
+  size_t size_of_element;
   pool_allocator *allocator;
 } hash_table;
 
 int hashtable_init(hash_table *table, size_t capacity,
-                   pool_allocator *allocator);
+                   pool_allocator *allocator, size_t size_of_element);
 int hashtable_insert(hash_table *table, const char *key, void *value);
 void *hashtable_get(hash_table *table, const char *key);
 int hashtable_del(hash_table *table, const char *key);

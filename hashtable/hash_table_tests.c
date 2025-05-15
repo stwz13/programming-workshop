@@ -13,15 +13,15 @@ void test_init_table() {
   hash_table table;
   hash_table *null_table = NULL;
 
-  assert(hashtable_init(&table, 10, null_allocator) ==
+  assert(hashtable_init(&table, 10, null_allocator, sizeof(int)) ==
          ALLOCATOR_ALLOCATION_ERROR);
 
-  assert(hashtable_init(null_table, 10, &allocator) ==
+  assert(hashtable_init(null_table, 10, &allocator, sizeof(int)) ==
          ALLOCATOR_ALLOCATION_ERROR);
 
-  assert(hashtable_init(&table, 0, &allocator) == SIZE_ERROR);
+  assert(hashtable_init(&table, 0, &allocator, 0) == SIZE_ERROR);
 
-  assert(hashtable_init(&table, 10, &allocator) == SUCCESS);
+  assert(hashtable_init(&table, 10, &allocator, sizeof(int)) == SUCCESS);
 
   assert(table.capacity == 10);
   assert(table.allocator == &allocator);
@@ -33,6 +33,7 @@ void test_init_table() {
     assert(table.hash_nodes[i].key == NULL);
   }
   free(buffer);
+  hashtable_free(&table);
 }
 
 void test_insert() {
@@ -48,26 +49,28 @@ void test_insert() {
   assert(hashtable_insert(null_table, null_key, null_value) ==
          ALLOCATOR_ALLOCATION_ERROR);
 
-  assert(hashtable_init(&table, 3, &allocator) == SUCCESS);
+  assert(hashtable_init(&table, 3, &allocator, sizeof(int)) == SUCCESS);
 
   int value1 = 13;
+  
   assert(hashtable_insert(&table, "key1", null_value) ==
          ALLOCATOR_ALLOCATION_ERROR);
   assert(hashtable_insert(&table, null_key, &value1) ==
          ALLOCATOR_ALLOCATION_ERROR);
   assert(hashtable_insert(null_table, "key1", &value1) ==
          ALLOCATOR_ALLOCATION_ERROR);
-
+  
   assert(hashtable_insert(&table, "key1", &value1) == SUCCESS);
+  
   assert(table.count_of_nodes == 1);
-
-  long int value2 = 1335789;
+  
+  int value2 = 133;
   assert(hashtable_insert(&table, "key2", &value2) == SUCCESS);
   assert(table.count_of_nodes == 2);
 
-  char *value3 = "thirteen";
+  int value3 = 13;
 
-  assert(hashtable_insert(&table, "key3", value3) == SUCCESS);
+  assert(hashtable_insert(&table, "key3", &value3) == SUCCESS);
   assert(table.count_of_nodes == 3);
 
   int limit_value = 1;
@@ -76,9 +79,9 @@ void test_insert() {
 
   assert(*(int *)hashtable_get(&table, "key1") == 13);
 
-  assert(*(long int *)hashtable_get(&table, "key2") == 1335789);
+  assert(*(int *)hashtable_get(&table, "key2") == value2);
 
-  assert(hashtable_get(&table, "key3") == "thirteen");
+  assert(*(int *)hashtable_get(&table, "key3") == value3);
 
   int change_value = 3;
 
@@ -86,6 +89,7 @@ void test_insert() {
   assert(*(int *)hashtable_get(&table, "key3") == 3);
 
   free(buffer);
+  
 }
 
 void test_get() {
@@ -97,19 +101,30 @@ void test_get() {
   hash_table table;
   const char *null_key = NULL;
   hash_table *null_table = NULL;
-  assert(hashtable_init(&table, 3, &allocator) == SUCCESS);
+  assert(hashtable_init(&table, 3, &allocator, sizeof(char)) == SUCCESS);
 
   assert(hashtable_get(null_table, "key") == NULL);
   assert(hashtable_get(null_table, null_key) == NULL);
   assert(hashtable_get(&table, null_key) == NULL);
   assert(hashtable_get(&table, "key") == NULL);
 
-  int value1 = 13;
-  assert(hashtable_insert(&table, "key1", &value1) == SUCCESS);
-  assert(*(int *)hashtable_get(&table, "key1") == 13);
+  char element1 = 'a';
+  char element2 = 'b';
+
+  assert(hashtable_insert(&table, "key1", &element1) == SUCCESS);
+  assert(hashtable_insert(&table, "key2", &element2) == SUCCESS);
+
+  assert(*(char *)hashtable_get(&table, "key1") == element1);
+  assert(hashtable_insert(&table, "key1", &element2) == SUCCESS);
+
+  assert(*(char *)hashtable_get(&table, "key1") == element2);
   assert(hashtable_get(&table, "a_non-existing_key") == NULL);
 
+  assert(hashtable_del(&table, "key1") == SUCCESS);
+  assert(hashtable_get(&table, "key1") == NULL);
+  
   free(buffer);
+  
 }
 
 void test_del() {
@@ -118,19 +133,19 @@ void test_del() {
   init_pool_allocator(&allocator, buffer, 1024, 3 * sizeof(hash_node));
 
   hash_table table;
-  assert(hashtable_init(&table, 3, &allocator) == SUCCESS);
+  assert(hashtable_init(&table, 3, &allocator, sizeof(int)) == SUCCESS);
   hash_table *null_table = NULL;
 
   assert(hashtable_del(null_table, "key1") == ALLOCATOR_ALLOCATION_ERROR);
   assert(hashtable_del(&table, "key1") == SIZE_ERROR);
 
-  int value1 = 13;
-  long int value2 = 1335789;
-  char *value3 = "thirteen";
+  int value1 = 135;
+  int value2 = 133;
+  int value3 = 134;
 
   assert(hashtable_insert(&table, "key1", &value1) == SUCCESS);
   assert(hashtable_insert(&table, "key2", &value2) == SUCCESS);
-  assert(hashtable_insert(&table, "key3", value3) == SUCCESS);
+  assert(hashtable_insert(&table, "key3", &value3) == SUCCESS);
 
   assert(hashtable_del(&table, "key4") == KEY_IS_NOT_FOUND);
 
@@ -157,17 +172,18 @@ void test_free() {
   init_pool_allocator(&allocator, buffer, 1024, 3 * sizeof(hash_node));
 
   hash_table table;
-  assert(hashtable_init(&table, 3, &allocator) == SUCCESS);
+  assert(hashtable_init(&table, 3, &allocator, sizeof(int)) == SUCCESS);
   hash_table *null_table = NULL;
 
   assert(hashtable_free(null_table) == ALLOCATOR_ALLOCATION_ERROR);
-  int value1 = 13;
-  long int value2 = 1335789;
-  char *value3 = "thirteen";
+
+  int value1 = 135;
+  int value2 = 133;
+  int value3 = 134;
 
   assert(hashtable_insert(&table, "key1", &value1) == SUCCESS);
   assert(hashtable_insert(&table, "key2", &value2) == SUCCESS);
-  assert(hashtable_insert(&table, "key3", value3) == SUCCESS);
+  assert(hashtable_insert(&table, "key3", &value3) == SUCCESS);
 
   assert(hashtable_free(&table) == SUCCESS);
 
@@ -175,6 +191,7 @@ void test_free() {
   assert(table.count_of_nodes == 0);
   assert(table.capacity == 0);
   assert(table.allocator == NULL);
+  assert(table.size_of_element == 0);
 
   free(buffer);
 }
