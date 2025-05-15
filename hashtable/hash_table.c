@@ -57,14 +57,14 @@ int hashtable_insert(hash_table *table, const char *key, void *value) {
       table->hash_nodes[curr_index].key = pool_alloc(table->allocator);
       table->hash_nodes[curr_index].element = pool_alloc(table->allocator);
 
-
-      if (!table->hash_nodes[curr_index].key || !table->hash_nodes[curr_index].element)
+      if (!table->hash_nodes[curr_index].key ||
+          !table->hash_nodes[curr_index].element)
         return ALLOCATOR_ALLOCATION_ERROR;
 
       strcpy(table->hash_nodes[curr_index].key, key);
 
       memcpy(table->hash_nodes[curr_index].element, value,
-          table->size_of_element);
+             table->size_of_element);
 
       table->hash_nodes[curr_index].is_init = INITIALIZATED;
       table->count_of_nodes++;
@@ -77,7 +77,6 @@ int hashtable_insert(hash_table *table, const char *key, void *value) {
              table->size_of_element);
       return SUCCESS;
     }
-
   }
   return SIZE_ERROR;
 }

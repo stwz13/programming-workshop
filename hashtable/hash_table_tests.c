@@ -52,18 +52,18 @@ void test_insert() {
   assert(hashtable_init(&table, 3, &allocator, sizeof(int)) == SUCCESS);
 
   int value1 = 13;
-  
+
   assert(hashtable_insert(&table, "key1", null_value) ==
          ALLOCATOR_ALLOCATION_ERROR);
   assert(hashtable_insert(&table, null_key, &value1) ==
          ALLOCATOR_ALLOCATION_ERROR);
   assert(hashtable_insert(null_table, "key1", &value1) ==
          ALLOCATOR_ALLOCATION_ERROR);
-  
+
   assert(hashtable_insert(&table, "key1", &value1) == SUCCESS);
-  
+
   assert(table.count_of_nodes == 1);
-  
+
   int value2 = 133;
   assert(hashtable_insert(&table, "key2", &value2) == SUCCESS);
   assert(table.count_of_nodes == 2);
@@ -89,7 +89,6 @@ void test_insert() {
   assert(*(int *)hashtable_get(&table, "key3") == 3);
 
   free(buffer);
-  
 }
 
 void test_get() {
@@ -122,9 +121,8 @@ void test_get() {
 
   assert(hashtable_del(&table, "key1") == SUCCESS);
   assert(hashtable_get(&table, "key1") == NULL);
-  
+
   free(buffer);
-  
 }
 
 void test_del() {
