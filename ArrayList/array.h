@@ -2,9 +2,10 @@
 #include <string.h>
 
 typedef struct {
-  void **head_of_elements;
+  void *head_of_elements;
   size_t capacity;
   size_t length;
+  size_t element_size;
   pool_allocator *allocator;
 } array_list;
 
@@ -15,7 +16,8 @@ typedef struct {
 
 #define DEFAULT_CAPACITY 8
 
-int arraylist_init(array_list *list, pool_allocator *alloc);
+int arraylist_init(array_list *list, pool_allocator *alloc,
+                   size_t element_size);
 int arraylist_expand(array_list *list);
 int arraylist_add(array_list *list, void *data, size_t index);
 void *arraylist_get(array_list *list, size_t index);
