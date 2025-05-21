@@ -21,3 +21,6 @@ jobs:
 
       - name: Test
         run: make test
+
+      - name: Test_Valgrind
+        run: make memory_test
