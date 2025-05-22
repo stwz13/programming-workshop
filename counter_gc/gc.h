@@ -8,7 +8,7 @@ typedef struct {
   pool_allocator *allocator;
 } ref_count_t;
 
-int ref_create(ref_count_t *ref_object, pool_allocator *allocator,
+int ref_create(ref_count_t **ref_object, pool_allocator *allocator,
                void *object);
 int ref_increase(ref_count_t *ref);
-int ref_reduce(ref_count_t *ref);
+int ref_reduce(ref_count_t **ref);
