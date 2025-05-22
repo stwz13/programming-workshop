@@ -17,6 +17,7 @@ void test_create_ref() {
   assert(int_ref.count = 1);
 
   assert(ref_reduce(&int_ref) == SUCCESSFUL_COMPLETION);
+  assert(int_ref.count == 0);
 
   ref_count_t null_ref;
   void *null_object = NULL;
@@ -46,6 +47,7 @@ void test_ref_increase() {
   assert(ref_object.count == 1);
 
   assert(ref_reduce(&ref_object) == SUCCESSFUL_COMPLETION);
+  assert(ref_object.count == 0);
 
   free(buffer);
 }
