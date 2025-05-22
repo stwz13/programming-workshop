@@ -11,6 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: install valgrind
+        run: 
+          sudo apt update
+          sudo apt install valgrind
+          
       - name: Make all files executable
         run: find . -type f -print0 | xargs -0 chmod +x
 
