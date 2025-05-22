@@ -5,8 +5,8 @@ test:
 	@for dir in $(SUBDIRS); do \
 		$(MAKE) -C $$dir test; \
 	done
-memory_test:test
-	for test_exec in $(TEST_MEMORY_FILES); do \
+memory_test:
+	@for test_exec in $(TEST_MEMORY_FILES); do \
 		valgrind --leak-check=full  $$test_exec; \
 	done
 clean:
