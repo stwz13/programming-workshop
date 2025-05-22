@@ -18,6 +18,8 @@ void test_create_ref() {
 
   assert(ref_reduce(&int_ref) == SUCCESSFUL_COMPLETION);
   assert(int_ref.count == 0);
+  assert(int_ref.object == NULL);
+  assert(int_ref.allocator == NULL);
 
   ref_count_t null_ref;
   void *null_object = NULL;
@@ -48,6 +50,8 @@ void test_ref_increase() {
 
   assert(ref_reduce(&ref_object) == SUCCESSFUL_COMPLETION);
   assert(ref_object.count == 0);
+  assert(ref_object.object == NULL);
+  assert(ref_object.allocator == NULL);
 
   free(buffer);
 }
@@ -90,6 +94,9 @@ void test_reduce() {
   assert(int_ref.count == 1);
   assert(ref_reduce(&int_ref) == SUCCESSFUL_COMPLETION);
 
+  assert(int_ref.count == 0);
+  assert(int_ref.object == NULL);
+  assert(int_ref.allocator == NULL);
   free(buffer);
 }
 int main() {

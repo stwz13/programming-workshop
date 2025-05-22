@@ -30,7 +30,9 @@ int ref_reduce(ref_count_t *ref) {
       return ALLOCATION_ERROR;
 
     pool_free(ref->allocator, ref->object);
+    ref->object = NULL;
     pool_free(ref->allocator, ref);
+    ref->allocator = NULL;
   }
   return SUCCESSFUL_COMPLETION;
 }
