@@ -7,7 +7,7 @@ void test_create_ref() {
   pool_allocator allocator;
   init_pool_allocator(&allocator, buffer, 1024, sizeof(ref_count_t));
 
-  ref_count_t *int_ref;
+  ref_count_t *int_ref = pool_alloc(&allocator);
   int int_data = 15;
   assert(ref_create(&int_ref, null_allocator, &int_data) == ALLOCATION_ERROR);
   assert(ref_create(&int_ref, &allocator, &int_data) == SUCCESSFUL_COMPLETION);
