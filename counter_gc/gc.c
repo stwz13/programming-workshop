@@ -40,12 +40,12 @@ int ref_add_dependent_obj(ref_count_t *curr_ref, ref_count_t **new_ref) {
   new_dep_ref->next = curr_ref->dependent_refs;
   curr_ref->dependent_refs = new_dep_ref;
 
-  ref_increase(curr_ref);
+  ref_increase(*new_ref);
   return SUCCESSFUL_COMPLETION;
 }
 
 int ref_reduce(ref_count_t **ref) {
-  if (!ref)
+  if (!ref || !*ref)
     return ALLOCATION_ERROR;
 
   ref_count_t *curr_ref = *ref;
@@ -58,7 +58,12 @@ int ref_reduce(ref_count_t **ref) {
     dependent_ref *dep = curr_ref->dependent_refs;
 
     while (dep) {
+
+      if (dep->ref)
+        ref_reduce(dep->ref);
+
       dependent_ref *next = dep->next;
+
       curr_ref->mem_ctx.deallocate(dep, curr_ref->mem_ctx.context);
       dep = next;
     }

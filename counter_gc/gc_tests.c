@@ -99,7 +99,7 @@ void test_ref_add_dependent_obj() {
   assert(ref_add_dependent_obj(new_ref1, NULL) == ALLOCATION_ERROR);
 
   assert(ref_add_dependent_obj(new_ref1, &new_ref2) == SUCCESSFUL_COMPLETION);
-  assert(new_ref1->count == 2);
+  assert(new_ref2->count == 2);
 
   free(buffer);
 }
@@ -144,10 +144,11 @@ void test_reduce() {
          SUCCESSFUL_COMPLETION);
 
   assert(ref_add_dependent_obj(new_ref1, &new_ref2) == SUCCESSFUL_COMPLETION);
-  assert(new_ref1->count == 2);
+  assert(new_ref1->count == 1);
+  assert(new_ref2->count == 2);
 
   assert(ref_reduce(&new_ref1) == SUCCESSFUL_COMPLETION);
-  assert(ref_reduce(&new_ref1) == SUCCESSFUL_COMPLETION);
+  assert(ref_reduce(&new_ref1) == ALLOCATION_ERROR);
 
   assert(new_ref1 == NULL);
   assert(new_ref2 != NULL);
