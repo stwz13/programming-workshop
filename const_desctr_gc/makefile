@@ -17,7 +17,7 @@ object_control.a: object_control.o pool_allocator.a
 object_control_tests.o: object_control_tests.c
 	gcc -g -c object_control_tests.c -o object_control_tests.o -Ipool_allocator -Igc -lm
 bin: object_control_tests.o object_control.a pool_allocator.a
-	gcc -g -static -o object_control_tests object_control_tests.o object_control.a pool_allocator.a -lm
+	gcc -g -o object_control_tests object_control_tests.o object_control.a pool_allocator.a -lm
 test:bin
 	./object_control_tests
 
