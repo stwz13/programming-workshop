@@ -1,11 +1,13 @@
 #include "gc.h"
 
-int ref_create(ref_count_t **ref_object, memory_context mem_ctx, void *object) {
-  if (!mem_ctx.context || !mem_ctx.allocate || !mem_ctx.deallocate || !object ||
-      !ref_object)
+int ref_create(ref_count_t **ref_object, memory_context *mem_ctx,
+               void *object) {
+  if (!mem_ctx || !mem_ctx->context || !mem_ctx->allocate ||
+      !mem_ctx->deallocate || !object || !ref_object)
     return ALLOCATION_ERROR;
 
-  ref_count_t *new_ref = mem_ctx.allocate(sizeof(ref_count_t), mem_ctx.context);
+  ref_count_t *new_ref =
+      mem_ctx->allocate(sizeof(ref_count_t), mem_ctx->context);
 
   if (!new_ref)
     return ALLOCATION_ERROR;
@@ -31,8 +33,8 @@ int ref_add_dependent_obj(ref_count_t *curr_ref, ref_count_t **new_ref) {
   if (!curr_ref || !new_ref)
     return ALLOCATION_ERROR;
 
-  dependent_ref *new_dep_ref = curr_ref->mem_ctx.allocate(
-      sizeof(dependent_ref), curr_ref->mem_ctx.context);
+  dependent_ref *new_dep_ref = curr_ref->mem_ctx->allocate(
+      sizeof(dependent_ref), curr_ref->mem_ctx->context);
   if (!new_dep_ref)
     return ALLOCATION_ERROR;
 
@@ -64,14 +66,14 @@ int ref_reduce(ref_count_t **ref) {
 
       dependent_ref *next = dep->next;
 
-      curr_ref->mem_ctx.deallocate(dep, curr_ref->mem_ctx.context);
+      curr_ref->mem_ctx->deallocate(dep, curr_ref->mem_ctx->context);
       dep = next;
     }
 
     curr_ref->dependent_refs = NULL;
-    curr_ref->mem_ctx.deallocate(curr_ref->object, curr_ref->mem_ctx.context);
+    curr_ref->mem_ctx->deallocate(curr_ref->object, curr_ref->mem_ctx->context);
     curr_ref->object = NULL;
-    curr_ref->mem_ctx.deallocate(curr_ref, curr_ref->mem_ctx.context);
+    curr_ref->mem_ctx->deallocate(curr_ref, curr_ref->mem_ctx->context);
     *ref = NULL;
   }
   return SUCCESSFUL_COMPLETION;
