@@ -41,9 +41,9 @@ int gc_add_reference(gc_object *from, gc_object *to) {
   return GC_SUCCESS;
 }
 
-void gc_mark(gc_object *obj) {
+int gc_mark(gc_object *obj) {
   if (!obj || obj->marked)
-    return;
+    return GC_ALLOCATION_ERROR;
 
   obj->marked = 1;
   gc_reference *ref = obj->references;
@@ -98,9 +98,9 @@ static void gc_sweep(gc_heap *heap) {
   }
 }
 
-void gc_collect(gc_heap *heap) {
+int gc_collect(gc_heap *heap) {
   if (!heap)
-    return;
+    return GC_ALLOCATION_ERROR;
 
   gc_object *obj = heap->head;
   while (obj) {

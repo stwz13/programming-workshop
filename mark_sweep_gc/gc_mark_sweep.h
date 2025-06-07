@@ -29,8 +29,8 @@ typedef struct {
 
 gc_object *gc_create_object(gc_heap *heap, void *object);
 int gc_add_reference(gc_object *from, gc_object *to);
-void gc_mark(gc_object *root);
-void gc_collect(gc_heap *heap);
+int gc_mark(gc_object *root);
+int gc_collect(gc_heap *heap);
 
 int gc_add_root(gc_heap *heap, gc_object *obj);
 int gc_remove_root(gc_heap *heap, gc_object *obj);
